@@ -7,6 +7,8 @@ if not cap.isOpened():
     exit()
 print("Camara abierta correctamente")
 
+fps_smoothed = 0
+alpha = 0.02
 time_inicio = time.time()
 
 while True:
@@ -19,9 +21,14 @@ while True:
     delta_time = time_actual - time_inicio
     time_inicio = time_actual
 
-    fps = 1 / delta_time if delta_time > 0 else 0 
+    fps_instant = 1 / delta_time if delta_time > 0 else 0 
 
-    cv2.putText(frame, f"FPS: {int(fps)}", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    if fps_smoothed == 0:
+        fps_smoothed = fps_instant
+    else:
+        fps_smoothed = ((1-alpha)*fps_smoothed) + (alpha*fps_instant)
+
+    cv2.putText(frame, f"FPS: {fps_smoothed:.0f}", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
     cv2.imshow("Captura imagen", frame)
 
