@@ -3,8 +3,8 @@ from ultralytics import YOLO
 
 model = YOLO("yolov8n.pt")
 
-id_classes = [42, 67, 73, 79, 2]
-min_conf = 0.60
+id_classes = [0, 42, 67, 73, 79, 2]
+min_conf = 0.45
 
 def procesar_frame(frame):
     results = model(frame, verbose=False, conf=min_conf, classes=id_classes)
@@ -19,6 +19,6 @@ def procesar_frame(frame):
         tag = f"{name_class} ({conf:.2f})"
 
         cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
-        cv2.putText(frame, f"{id_class}", (x1+10, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , (255, 0, 0), 2)
+        cv2.putText(frame, f"{tag}", (x1+10, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , (255, 0, 0), 2)
     
     return frame
