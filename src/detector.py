@@ -1,0 +1,24 @@
+import cv2
+from ultralytics import YOLO
+
+model = YOLO("yolov8n.pt")
+
+id_classes = [42, 67, 73, 79, 2]
+min_conf = 0.60
+
+def procesar_frame(frame):
+    results = model(frame, verbose=False, conf=min_conf, classes=id_classes)
+    det_boxes = results[0].boxes
+
+    for box in det_boxes:
+        id_class = int(box.cls[0])
+        conf = float(box.conf[0])
+        x1, y1, x2, y2 = map(int, box.xyxy[0])
+
+        name_class = model.names[id_class]
+        tag = f"{name_class} ({conf:.2f})"
+
+        cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
+        cv2.putText(frame, f"{id_class}", (x1+10, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , (255, 0, 0), 2)
+    
+    return frame
