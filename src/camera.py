@@ -29,7 +29,6 @@ while True:
         fps_smoothed = ((1-alpha)*fps_smoothed) + (alpha*fps_instant)
 
     cv2.putText(frame, f"FPS: {fps_smoothed:.0f}", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-    #cv2.putText(frame, f"FPS: {fps_instant:.0f}", (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
     cv2.imshow("Captura imagen", frame)
 
