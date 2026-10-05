@@ -22,6 +22,3 @@ def procesar_frame(frame):
         cv2.putText(frame, f"{tag}", (x1+10, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , (255, 0, 0), 2)
     
     return frame
-
-for id in id_classes:
-    print(f"{model.names[id]}")
