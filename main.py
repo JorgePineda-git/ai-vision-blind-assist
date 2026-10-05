@@ -32,8 +32,9 @@ while True:
         fps_smooth = fps_instant
     
     fps_smooth = ((1-alpha)*fps_smooth) + (alpha*fps_instant)
+    latencia = delta_time * 1000
 
-    cv2.putText(frame, f"FPS: {fps_smooth:.0f}", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    cv2.putText(frame, f"FPS: {fps_smooth:.0f} | Latencia: {latencia:.1f} ms", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 0), 2)
 
     cv2.imshow("Captura imagen", frame)
 
