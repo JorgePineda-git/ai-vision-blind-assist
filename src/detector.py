@@ -3,7 +3,7 @@ from ultralytics import YOLO
 
 model = YOLO("yolov8n.pt")
 
-id_classes = [0, 42, 67, 73, 79, 2]
+id_classes = [0, 2, 42, 56, 57, 60, 67, 72, 73, 79]
 min_conf = 0.45
 
 def procesar_frame(frame):
@@ -22,3 +22,6 @@ def procesar_frame(frame):
         cv2.putText(frame, f"{tag}", (x1+10, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , (255, 0, 0), 2)
     
     return frame
+
+for id in id_classes:
+    print(f"{model.names[id]}")
